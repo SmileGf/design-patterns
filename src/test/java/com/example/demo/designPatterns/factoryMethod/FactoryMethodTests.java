@@ -1,6 +1,9 @@
 package com.example.demo.designPatterns.factoryMethod;
 
+import com.example.demo.factoryMethod.AgvProcessFactoryMethod;
+import com.example.demo.factoryMethod.DeviceProcessFactoryMethod;
 import com.example.demo.factoryMethod.FactoryMethod;
+import com.example.demo.factoryMethod.HoistProcessFactoryMethod;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -11,34 +14,18 @@ import org.junit.jupiter.api.Test;
 public class FactoryMethodTests {
 
     /**
-     * 普通 工厂
-     */
-    @Test
-    public void ordinaryFactoryTest(){
-        FactoryMethod factoryMethod = new FactoryMethod();
-        factoryMethod.ordinaryProcess("agv").processHandler();
-        factoryMethod.ordinaryProcess("device").processHandler();
-        factoryMethod.ordinaryProcess("hoist").processHandler();
-    }
-
-    /**
-     * 多方法 工厂
+     * 工厂方法模式
      */
     @Test
     public void manyMethodsFactoryTest(){
-        FactoryMethod factoryMethod = new FactoryMethod();
-        factoryMethod.agvProcess().processHandler();
-        factoryMethod.deviceProcess().processHandler();
-        factoryMethod.hoistProcess().processHandler();
+        FactoryMethod factoryMethod = new AgvProcessFactoryMethod();
+        factoryMethod.manufacture().processHandler();
+
+        FactoryMethod deviceFactoryMethod = new DeviceProcessFactoryMethod();
+        deviceFactoryMethod.manufacture().processHandler();
+
+        FactoryMethod HoistFactoryMethod = new HoistProcessFactoryMethod();
+        HoistFactoryMethod.manufacture().processHandler();
     }
 
-    /**
-     * 静态方法 工厂
-     */
-    @Test
-    public void staticMethodsFactoryTest(){
-        FactoryMethod.staticAgvProcess().processHandler();
-        FactoryMethod.staticDeviceProcess().processHandler();
-        FactoryMethod.staticHoistProcess().processHandler();
-    }
 }

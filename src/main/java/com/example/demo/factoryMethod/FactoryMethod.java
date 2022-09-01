@@ -1,67 +1,31 @@
 package com.example.demo.factoryMethod;
 
-import com.example.demo.polymorphism.AgvProcessService;
-import com.example.demo.polymorphism.DeviceProcessService;
-import com.example.demo.polymorphism.HoistProcessService;
 import com.example.demo.polymorphism.ProcessServices;
 
 /**
- * 工厂模式
+ * 工厂方法模式 工厂模式/多态工厂模式/虚拟构造器模式
+ *  将类的实例化延迟到工厂类的之类中完成,即由子类来决定应该实例化哪个类
+ * 优点:
+ *     更符合开闭原则: 新增一个实例,只需要增加相应的具体实例类和相应的工厂子类即可
+ *     符合单一职责原则: 每个具体工厂类只负责创建对应的产品
+ *     不使用静态工厂方法,可以形成基于继承的等级结构.
+ *     工厂模式可以说是简单工厂模式的进一步抽象和拓展，在保留了简单工厂的封装优点的同时，让扩展变得简单，让继承变得可行，增加了多态性的体现
+ * 缺点:
+ *      添加新实例时,除了新增新实例类外,还要提供与之对应的具体工厂类,系统类的个数将成对增加,在一定程度上增加了系统的复杂度.
+ *          同时有更多的类需要编译运行,会给系统带来额外的开销.
+ *      由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、
+ *          反射等技术，增加了系统的实现难度。
+ *      虽然保证了工厂方法内的对修改关闭，但对于使用工厂方法的类，如果要更换另外一种产品，仍然需要修改实例化的具体工厂类；
+ *      一个具体工厂只能创建一种具体实例.
  * @author gf
  * @date 2022/8/31
  */
-public class FactoryMethod {
-
-    private static final String AGV = "agv";
-
-    private static final String DEVICE = "device";
-
-    private static final String HOIST = "hoist";
+public interface FactoryMethod {
 
     /**
-     * 普通工厂模式 建立一个工厂类，对实现了同一接口的一些类进行实例的创建。
-     * @param type 工厂实例对象类型
-     * @return 实例对象
+     * 生产 factory method
+     * @return process
      */
-    public ProcessServices ordinaryProcess(String type){
-        if(AGV.equals(type)){
-            return new AgvProcessService();
-        }else if(DEVICE.equals(type)){
-            return new DeviceProcessService();
-        }else if(HOIST.equals(type)){
-            return  new HoistProcessService();
-        }
-        return null;
-    }
+    ProcessServices manufacture();
 
-    /**
-     *  多方法工厂模式 是对普通工厂方法模式的改进，在普通工厂方法模式中，如果传递的字符串出错，则不能正确创建对象，
-     *  而多个工厂方法模式是提供多个工厂方法，分别创建对象。
-     */
-    public ProcessServices agvProcess(){
-        return new AgvProcessService();
-    }
-
-    public ProcessServices deviceProcess(){
-        return new DeviceProcessService();
-    }
-
-    public ProcessServices hoistProcess(){
-        return new HoistProcessService();
-    }
-
-    /**
-     * 静态工厂方法模式，将工厂方法模式里的方法置为静态的，不需要创建实例，直接调用即可。
-     */
-    public static ProcessServices staticAgvProcess(){
-        return new AgvProcessService();
-    }
-
-    public static ProcessServices staticDeviceProcess(){
-        return new DeviceProcessService();
-    }
-
-    public static ProcessServices staticHoistProcess(){
-        return new HoistProcessService();
-    }
 }
